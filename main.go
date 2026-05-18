@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -24,10 +24,16 @@ func main() {
 	bookHandler := NewBookHandler(bookRepo)
 
 	r := chi.NewRouter()
+	
+	r.Post("/books", bookHandler.Create)
+	r.Get("/books", bookHandler.GetAllBooks)
 
-	r.Get("/books/{id}", bookHandler.GetAllBooks)
+	r.Get("/books/{id}", bookHandler.GetById)
 	r.Put("/books/{id}", bookHandler.Update)
+	r.Patch("/books/{id}", bookHandler.Patch)
 	r.Delete("/books/{id}", bookHandler.Delete)
+
+	
 
 	fmt.Println("Server is running on port 8080...")
 	http.ListenAndServe(":8080", r)
