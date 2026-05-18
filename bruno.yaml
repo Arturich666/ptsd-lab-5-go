@@ -1,0 +1,101 @@
+info:
+  _postman_id: "books-api-lab-id"
+  name: "Books API Lab (YAML)"
+  schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+item:
+  - name: "1. Create Book (POST)"
+    request:
+      method: "POST"
+      header:
+        - key: "Content-Type"
+          value: "application/json"
+      body:
+        mode: "raw"
+        raw: "{\n  \"title\": \"Kobzar\",\n  \"author\": \"Taras Shevchenko\",\n  \"year\": 1840,\n  \"price\": 350.50\n}"
+      url:
+        raw: "http://localhost:8080/books"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+
+  - name: "2. Get All Books (GET)"
+    request:
+      method: "GET"
+      header: []
+      url:
+        raw: "http://localhost:8080/books"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+
+  - name: "3. Get Book By ID (GET)"
+    request:
+      method: "GET"
+      header: []
+      url:
+        raw: "http://localhost:8080/books/ВСТАВ_ID_СЮДИ"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+          - "ВСТАВ_ID_СЮДИ"
+
+  - name: "4. Update Book Completely (PUT)"
+    request:
+      method: "PUT"
+      header:
+        - key: "Content-Type"
+          value: "application/json"
+      body:
+        mode: "raw"
+        raw: "{\n  \"title\": \"Eneida\",\n  \"author\": \"Ivan Kotliarevskyi\",\n  \"year\": 1798,\n  \"price\": 599.99\n}"
+      url:
+        raw: "http://localhost:8080/books/ВСТАВ_ID_СЮДИ"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+          - "ВСТАВ_ID_СЮДИ"
+
+  - name: "5. Patch Book Partially (PATCH)"
+    request:
+      method: "PATCH"
+      header:
+        - key: "Content-Type"
+          value: "application/json"
+      body:
+        mode: "raw"
+        raw: "{\n  \"price\": 450.00\n}"
+      url:
+        raw: "http://localhost:8080/books/ВСТАВ_ID_СЮДИ"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+          - "ВСТАВ_ID_СЮДИ"
+
+  - name: "6. Delete Book (DELETE)"
+    request:
+      method: "DELETE"
+      header: []
+      url:
+        raw: "http://localhost:8080/books/ВСТАВ_ID_СЮДИ"
+        protocol: "http"
+        host:
+          - "localhost"
+        port: "8080"
+        path:
+          - "books"
+          - "ВСТАВ_ID_СЮДИ"
