@@ -31,14 +31,7 @@ type BookHandler struct {
 				http.Error(w, "invalid id", http.StatusBadRequest)
 			}
 			
-			query := "SELECT id, title, author, year, price FROM books where id=$1"
-			b := &Book{} 
-			err = dbpool.QueryRow(r.Context(), query, id).Scan(&b.ID, &b.Title, &b.Author, &b.Year, &b.Price)
-			if err != nil {
-				fmt.Errorf("get book by id", err)
-				http.Error(w, "book not found", http.StatusNotFound)
-				return
-			}
+			
 
 			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(b)
