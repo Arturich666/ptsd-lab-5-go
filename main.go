@@ -20,7 +20,12 @@ func main() {
 	}
 	defer dbpool.Close()
 
+	bookRepo := NewBookRepo(dbpool)
+	bookHandler := NewBookHandler(bookRepo)
+
 	r := chi.NewRouter()
+
+	r.Get("/books/{id}", bookHandler.GetAllBooks)
 
 	fmt.Println("Server is running on port 8080...")
 	http.ListenAndServe(":8080", r)
