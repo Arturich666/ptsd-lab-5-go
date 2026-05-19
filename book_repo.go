@@ -8,6 +8,8 @@ import (
 
 type BookRepo interface {
 	GetAllBooks(ctx context.Context) ([]*Book, error)
+	Update(ctx context.Context, book *Book) error
+	Delete(ctx context.Context, id uuid.UUID) error
 }
 
 type bookRepo struct {
@@ -55,6 +57,21 @@ func (r *bookRepo) Update(ctx context.Context, book *Book) error {
 	`
 
 	cmdTag, err := r.db.Exec(ctx, query, book.Title, book.Author, book.Year, book.Price, book.ID)
+	if err != nil {
+		return err
+	}
+
+	if cmdTag.RowsAffected() == 0 {
+		return errors.New("book not found")
+	}
+
+	return nil
+}
+
+func (r *bookRepo) Delete(ctx context.Context, id uuid.UUID) error {
+	query := `DELETE FROM books WHERE id = $1`
+
+	cmdTag, err := r.db.Exec(ctx, query, id)
 	if err != nil {
 		return err
 	}
