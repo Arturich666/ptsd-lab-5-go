@@ -46,3 +46,22 @@ func (r *bookRepo) GetAllBooks(ctx context.Context) ([]*Book, error) {
 
 	return books, nil
 }
+
+func (r *bookRepo) Update(ctx context.Context, book *Book) error {
+	query := `
+		UPDATE books 
+		SET title = $1, author = $2, year = $3, price = $4 
+		WHERE id = $5
+	`
+
+	cmdTag, err := r.db.Exec(ctx, query, book.Title, book.Author, book.Year, book.Price, book.ID)
+	if err != nil {
+		return err
+	}
+
+	if cmdTag.RowsAffected() == 0 {
+		return errors.New("book not found")
+	}
+
+	return nil
+}
